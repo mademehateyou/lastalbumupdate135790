@@ -57,6 +57,14 @@
         </main>
 
 
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const video = document.getElementById("bg-video");
+    video.play().catch(err => {
+      console.log("Autoplay blocked:", err);
+    });
+  });
+</script>
 
 
 
