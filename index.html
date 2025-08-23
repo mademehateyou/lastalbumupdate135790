@@ -14,17 +14,7 @@
     <main>
 
     <div class="slide">
-  <video 
-    id="bg-video"
-    autoplay 
-    muted 
-    playsinline 
-    webkit-playsinline 
-    preload="auto"
-  >
-    <source src="video/lastvideo.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
+  <video id="bg-video" autoplay muted playsinline webkit-playsinline></video>
 </div>
 
 
@@ -79,30 +69,35 @@
 
 
           <script>
-  const videoPlayer = document.getElementById("bg-video");
-  const sources = [
+  // List of your videos in order
+  const videos = [
     "video/firstpart1.mp4", // first video
     "video/secondpart2.mp4"  // second video
   ];
 
+  const videoPlayer = document.getElementById("bg-video");
   let currentIndex = 0;
 
+  // Function to play a video from the array
   function playNextVideo() {
-    videoPlayer.src = sources[currentIndex];
-    videoPlayer.play();
+    videoPlayer.src = videos[currentIndex];
+    videoPlayer.play().catch(err => {
+      console.log("Autoplay blocked:", err);
+    });
   }
 
+  // Event triggers when a video ends
   videoPlayer.addEventListener("ended", () => {
     currentIndex++;
-    if (currentIndex < sources.length) {
+    if (currentIndex < videos.length) {
       playNextVideo();
     } else {
-      currentIndex = 0; // loop back to first video (remove if you want to stop after 2nd)
+      currentIndex = 0; // loop back to first video
       playNextVideo();
     }
   });
 
-  // start with first video
+  // Start the first video
   playNextVideo();
 </script>
 
