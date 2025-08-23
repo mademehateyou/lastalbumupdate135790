@@ -148,13 +148,13 @@ footer {
 
 #watermark {
   position: fixed;
-  top: clamp(-5px, -1vw, -15px);           /* distance from the top */
-  left: 5%;           /* move it to the middle horizontally */
-  transform: translateX(-50%); /* actually center it */
-  width: clamp(4rem, 16vw, 12rem);      /* adjust size as you like */
-  opacity: 0.8;        /* transparency like a watermark */
-  z-index: 9999;       /* keep it above video & slides */
-  pointer-events: none; /* don’t block clicks */
+  top: clamp(5px, 2vw, 15px);   /* always gives breathing room from top */
+  left: 6%;                    /* center horizontally */
+  transform: translateX(-50%);
+  width: clamp(4rem, 16vw, 12rem);
+  opacity: 0.8;
+  z-index: 9999;
+  pointer-events: none;
 }
 
 
