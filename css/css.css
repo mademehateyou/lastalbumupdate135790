@@ -1,0 +1,443 @@
+.bebas-neue-regular {
+  font-family: "Bebas Neue", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+
+:root {
+  --bg-color: #000000;
+  --text-color: #03d745;
+  --accent-color: #03d745;
+  --link-color: #00bfff;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6%;
+  overflow: hidden; /* Disable native scrolling for slideshow */
+  scroll-behavior: smooth;
+}
+
+#slides-container {
+  height: 100%;
+  overflow: hidden;
+  scroll-snap-type: y mandatory;
+}
+
+.slide {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  scroll-snap-align: center;
+}
+
+.slide img {
+  max-height: 100vh;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+footer {
+  width: 100%;
+  height: 100vh;
+  background-image: url("images/footer-bg.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+
+.footer-img {
+  width: clamp(200%, 240vw, 280%);   /* scales smoothly */
+  height: auto;                      /* keeps proportions */
+  object-fit: cover;                 /* ensures it fills without distortion */
+}
+
+
+
+.bottom-sliding-text {
+  position: fixed;
+  bottom: env(safe-area-inset-bottom, 5px);
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.scrolling-text {
+  display: inline-block;
+  white-space: nowrap;
+  padding-left: 100%;
+  animation: slide-left 13s linear infinite;
+  color: #00FF00;
+  font-size: clamp(10px, 2vw, 18px);
+  font-family: Arial, sans-serif;
+  padding: 12px 0;
+}
+
+@keyframes slide-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+
+
+.nav-buttons {
+  position: fixed;
+  bottom: 20px;       /* 20px from bottom edge */
+  right: 20px;        /* 20px from right edge */
+  display: flex;
+  flex-direction: column; /* Stack buttons vertically */
+  gap: 15px;
+  z-index: 9999;
+}
+
+.nav-button {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: none;
+  font-size: 24px;
+  color: #00FF00;
+  background-color: rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.3s ease;
+}
+
+.nav-button:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+#countdown {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  gap: 0.3em;                       /* spacing between blocks */
+  font-size: clamp(2rem, 8vw, 6rem);
+  color: deeppink;
+  z-index: 10;
+  white-space: nowrap;              /* prevent wrapping */
+  font-family: "Bebas Neue", sans-serif;
+}
+
+#countdown .unit {
+  display: inline-block;
+  min-width: 1ch;                   /* keeps digits stable */
+  text-align: center;
+  letter-spacing: 0em;           /* pulls number + letter closer */
+}
+
+
+#bg-video {
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  pointer-events: none;
+  display: block;
+}
+
+#watermark {
+  position: fixed;
+  top: -15px;           /* distance from the top */
+  left: 5%;           /* move it to the middle horizontally */
+  transform: translateX(-50%); /* actually center it */
+  width: clamp(4rem, 16vw, 12rem);      /* adjust size as you like */
+  opacity: 0.8;        /* transparency like a watermark */
+  z-index: 9999;       /* keep it above video & slides */
+  pointer-events: none; /* don’t block clicks */
+}
+
+
+
+#slideToggleBtn {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+#slideToggleBtn img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;  /* keeps proportions */
+  transition: transform 0.3s ease;
+}
+
+#footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+
+
+
+
+/*
+
+@media all and (max-width: 500px) {
+    #countdown {
+      display: flex;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: clamp(2rem, 8vw, 6rem);      
+  letter-spacing: 0.2em;
+  color: deeppink;
+  text-align: center;
+  z-index: 10;          
+}
+    .slide {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1000px;
+    scroll-snap-align: center;
+}
+
+@media all and (max-width: 600px) {
+    #countdown {
+      display: flex;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: clamp(2rem, 8vw, 6rem);     
+  letter-spacing: 0.2em;
+  color: deeppink;
+  text-align: center;
+  z-index: 10;      
+}
+    .slide {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1000px;
+    scroll-snap-align: center;
+}
+}
+}
+@media all and (max-width: 768px) {
+    #countdown {
+      display: flex;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: clamp(2rem, 8vw, 6rem);      
+  letter-spacing: 0.2em;
+  color: deeppink;
+  text-align: center;
+  z-index: 10;          
+}
+    .slide {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1000px;
+    scroll-snap-align: center;
+}
+    
+}
+
+@media all and (max-width: 992px) {
+    #countdown {
+      display: flex;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: clamp(2rem, 8vw, 6rem);      
+  letter-spacing: 0.2em;
+  color: deeppink;
+  text-align: center;
+  z-index: 10;          
+}
+    .slide {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1000px;
+    scroll-snap-align: center;
+}
+    
+}
+
+@media all and (max-width: 1200px) {
+    #countdown {
+      display: flex;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: clamp(2rem, 8vw, 6rem);      
+  letter-spacing: 0.2em;
+  color: deeppink;
+  text-align: center;
+  z-index: 10;          
+}
+    .slide {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1000px;
+    scroll-snap-align: center;
+}
+    
+}
+
+
+
+/* */
+/*
+@media all and (min-width: 500px) {
+    #countdown {
+      display: flex;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: clamp(2rem, 8vw, 6rem);      
+  letter-spacing: 0.2em;
+  color: deeppink;
+  text-align: center;
+  z-index: 10;          
+}
+    .slide {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1000px;
+    scroll-snap-align: center;
+}
+    
+}
+
+@media all and (min-width: 600px) {
+    #countdown {
+      display: flex;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: clamp(2rem, 8vw, 6rem);      
+  letter-spacing: 0.2em;
+  color: deeppink;
+  text-align: center;
+  z-index: 10;          
+}
+    .slide {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1000px;
+    scroll-snap-align: center;
+}
+    
+}
+
+@media all and (min-width: 768px) {
+    #countdown {
+      display: flex;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: clamp(2rem, 8vw, 6rem);      
+  letter-spacing: 0.2em;
+  color: deeppink;
+  text-align: center;
+  z-index: 10;          
+}
+    .slide {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1000px;
+    scroll-snap-align: center;
+}
+    
+}
+
+@media all and (min-width: 992px) {
+    #countdown {
+      display: flex;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: clamp(2rem, 8vw, 6rem);     
+  letter-spacing: 0.2em;
+  color: deeppink;
+  text-align: center;
+  z-index: 10;          
+}
+    .slide {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1000px;
+    scroll-snap-align: center;
+}
+    
+}
+
+@media all and (min-width: 1200px) {
+    #countdown {
+      display: flex;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: clamp(2rem, 8vw, 6rem);      
+  letter-spacing: 0.2em;
+  color: deeppink;
+  text-align: center;
+  z-index: 10;          
+}
+    .slide {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1000px;
+    scroll-snap-align: center;
+}
+    
+}

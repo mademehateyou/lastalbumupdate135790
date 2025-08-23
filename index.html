@@ -1,0 +1,160 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/css.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+</head>
+<body>
+    
+    <main>
+
+    <div class="slide">
+  <video autoplay muted playsinline id="bg-video">
+    <source src="video/firstpart1.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+</div>
+
+<div id="countdown">
+  <span id="days"></span><span class="label">D</span>
+  <span id="hours"></span><span class="label">H</span>
+  <span id="minutes"></span><span class="label">M</span>
+  <span id="seconds"></span><span class="label">S</span>
+</div>
+
+
+  <img src="images/ALBUM!.png" id="watermark" alt="Watermark">
+
+
+  <button id="slideToggleBtn" aria-label="Next slide">
+  <img id="arrowIcon" src="images/arrowfinal.png" alt="arrow">
+</button>
+
+
+
+
+    <footer>
+        
+        <div id="slides-container">
+
+
+        <section class="slide"><img src="images/pnggg.png" alt="Footer background" class="footer-img"></section>
+
+
+        </div>
+
+    </footer>
+    
+
+
+
+
+
+        </main>
+
+
+
+
+
+
+          <script>
+  const videoPlayer = document.getElementById("bg-video");
+  const sources = [
+    "video/firstpart1.mp4", // first video
+    "video/secondpart2.mp4"  // second video
+  ];
+
+  let currentIndex = 0;
+
+  function playNextVideo() {
+    videoPlayer.src = sources[currentIndex];
+    videoPlayer.play();
+  }
+
+  videoPlayer.addEventListener("ended", () => {
+    currentIndex++;
+    if (currentIndex < sources.length) {
+      playNextVideo();
+    } else {
+      currentIndex = 0; // loop back to first video (remove if you want to stop after 2nd)
+      playNextVideo();
+    }
+  });
+
+  // start with first video
+  playNextVideo();
+</script>
+
+
+
+
+
+            <script>
+  const slides = document.querySelectorAll('.slide');
+  const toggleBtn = document.getElementById('slideToggleBtn');
+  const arrowIcon = document.getElementById('arrowIcon');
+  let currentSlideIndex = 0;
+  let rotation = 0; // store rotation angle
+
+  toggleBtn.addEventListener('click', () => {
+    // Toggle slide index between 0 and 1
+    currentSlideIndex = currentSlideIndex === 0 ? 1 : 0;
+    slides[currentSlideIndex].scrollIntoView({ behavior: 'smooth' });
+
+    // Always rotate arrow 180° more
+    rotation += 180;
+    arrowIcon.style.transform = `rotate(${rotation}deg)`;
+  });
+</script>
+
+
+
+
+
+
+
+
+                            <script>
+  // Set your target date
+  const targetDate = new Date("August 29, 2025 00:00:00").getTime();
+
+  const countdown = document.getElementById("countdown");
+
+  function updateCountdown() {
+    const now = new Date().getTime();
+    const distance = targetDate - now;
+
+    if (distance < 0) {
+      countdown.innerHTML = "ALBUM!";
+      clearInterval(interval);
+      return;
+    }
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    countdown.innerHTML = `
+      <span class="unit">${days}D</span>
+      <span class="unit">${hours}H</span>
+      <span class="unit">${minutes}M</span>
+      <span class="unit">${seconds}S</span>
+    `;
+  }
+
+  const interval = setInterval(updateCountdown, 1000);
+  updateCountdown(); // run immediately
+</script>
+
+
+
+
+</body>
+</html>
+
