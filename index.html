@@ -131,27 +131,36 @@
 
 
                            <script>
-    // Target date in Kyiv time
+    // Target date in Kyiv time (midnight start of Friday, Aug 29, 2025)
     const targetKyiv = new Date("2025-08-29T00:00:00+03:00"); 
-    // Note: Kyiv is UTC+3 in August (daylight savings applied)
 
-    function updateCountdown() {
-      const now = new Date();
-
-      // Get Kyiv current time offset
-      const formatter = new Intl.DateTimeFormat("en-US", {
+    function getKyivNow() {
+      // Use Intl to get the "current time" in Kyiv
+      const formatter = new Intl.DateTimeFormat("en-CA", {
         timeZone: "Europe/Kyiv",
         hour12: false,
-        year: "numeric", month: "2-digit", day: "2-digit",
-        hour: "2-digit", minute: "2-digit", second: "2-digit"
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit"
       });
 
-      // Parse formatted Kyiv "now" into a Date
-      const parts = formatter.formatToParts(now);
-      const kyivNowStr = ${parts.find(p=>p.type==="year").value}-${parts.find(p=>p.type==="month").value}-${parts.find(p=>p.type==="day").value}T${parts.find(p=>p.type==="hour").value}:${parts.find(p=>p.type==="minute").value}:${parts.find(p=>p.type==="second").value}+03:00;
-      const kyivNow = new Date(kyivNowStr);
+      const parts = formatter.formatToParts(new Date());
+      const values = {};
+      for (const p of parts) {
+        if (p.type !== "literal") values[p.type] = p.value;
+      }
 
-      // Time difference
+      // Construct a date string in ISO format with Kyiv offset (+03:00)
+      return new Date(
+        ${values.year}-${values.month}-${values.day}T${values.hour}:${values.minute}:${values.second}+03:00
+      );
+    }
+
+    function updateCountdown() {
+      const kyivNow = getKyivNow();
       const diff = targetKyiv - kyivNow;
 
       if (diff <= 0) {
@@ -169,7 +178,7 @@
         ${days}d ${hours}h ${minutes}m ${seconds}s;
     }
 
-    // Update every second
+    // Run immediately, then every second
     updateCountdown();
     const timer = setInterval(updateCountdown, 1000);
   </script>
