@@ -132,35 +132,40 @@
     
 
                            <script>
-    // Target: start of Friday Aug 29, 2025 in Kyiv (Europe/Kyiv is UTC+3 in August 2025)
-    const targetUTC = Date.UTC(2025, 7, 28, 21, 0, 0); 
-    // Explanation:
-    // - JS months are 0-based (7 = August)
-    // - Kyiv midnight (00:00 Aug 29) = 21:00 UTC on Aug 28
+    (function () {
+      // Midnight in Kyiv (UTC+3) → 21:00 UTC on 2025-08-28
+      var targetUTC = Date.UTC(2025, 7, 28, 21, 0, 0); // months are 0-based: 7 = August
+      var el = document.getElementById("countdown");
+      var timerId = null;
 
-    function updateCountdown() {
-      const nowUTC = Date.now();
-      const diff = targetUTC - nowUTC;
+      function pad(n) { return n < 10 ? "0" + n : String(n); }
 
-      if (diff <= 0) {
-        document.getElementById("countdown").textContent = "🎉 Friday has started in Kyiv!";
-        clearInterval(timer);
-        return;
+      function render() {
+        var nowUTC = Date.now();
+        var diff = targetUTC - nowUTC;
+
+        if (!isFinite(diff)) { el.textContent = "Error: time math failed."; return; }
+
+        if (diff <= 0) {
+          el.textContent = "🎉 Friday has started in Kyiv!";
+          if (timerId) clearInterval(timerId);
+          return;
+        }
+
+        var d = Math.floor(diff / 86400000);              // days
+        var h = Math.floor(diff / 3600000) % 24;          // hours
+        var m = Math.floor(diff / 60000) % 60;            // minutes
+        var s = Math.floor(diff / 1000) % 60;             // seconds
+
+        // Use string concatenation (no template strings) for maximum compatibility
+        el.textContent = d + "d " + pad(h) + "h " + pad(m) + "m " + pad(s) + "s";
       }
 
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((diff / (1000 * 60)) % 60);
-      const seconds = Math.floor((diff / 1000) % 60);
-
-      document.getElementById("countdown").textContent =
-        ${days}d ${hours}h ${minutes}m ${seconds}s;
-    }
-
-    updateCountdown();
-    const timer = setInterval(updateCountdown, 1000);
+      // Kick off immediately, then every second
+      render();
+      timerId = setInterval(render, 1000);
+    })();
   </script>
-
 
 
 
