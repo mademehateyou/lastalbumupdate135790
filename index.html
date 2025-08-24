@@ -131,40 +131,18 @@
 
 
                            <script>
-    // Target date in Kyiv time (midnight start of Friday, Aug 29, 2025)
-    const targetKyiv = new Date("2025-08-29T00:00:00+03:00"); 
-
-    function getKyivNow() {
-      // Use Intl to get the "current time" in Kyiv
-      const formatter = new Intl.DateTimeFormat("en-CA", {
-        timeZone: "Europe/Kyiv",
-        hour12: false,
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit",
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit"
-      });
-
-      const parts = formatter.formatToParts(new Date());
-      const values = {};
-      for (const p of parts) {
-        if (p.type !== "literal") values[p.type] = p.value;
-      }
-
-      // Construct a date string in ISO format with Kyiv offset (+03:00)
-      return new Date(
-        ${values.year}-${values.month}-${values.day}T${values.hour}:${values.minute}:${values.second}+03:00
-      );
-    }
+    // Target: start of Friday Aug 29, 2025 in Kyiv (Europe/Kyiv is UTC+3 in August 2025)
+    const targetUTC = Date.UTC(2025, 7, 28, 21, 0, 0); 
+    // Explanation:
+    // - JS months are 0-based (7 = August)
+    // - Kyiv midnight (00:00 Aug 29) = 21:00 UTC on Aug 28
 
     function updateCountdown() {
-      const kyivNow = getKyivNow();
-      const diff = targetKyiv - kyivNow;
+      const nowUTC = Date.now();
+      const diff = targetUTC - nowUTC;
 
       if (diff <= 0) {
-        document.getElementById("countdown").textContent = "🎉 The day has arrived in Kyiv!";
+        document.getElementById("countdown").textContent = "🎉 Friday has started in Kyiv!";
         clearInterval(timer);
         return;
       }
@@ -178,7 +156,6 @@
         ${days}d ${hours}h ${minutes}m ${seconds}s;
     }
 
-    // Run immediately, then every second
     updateCountdown();
     const timer = setInterval(updateCountdown, 1000);
   </script>
