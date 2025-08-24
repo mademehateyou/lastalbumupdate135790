@@ -196,7 +196,7 @@ footer {
 @media (max-width: 768px) {
   #watermark {
     left: 50%;
-    transform: translateX(-50%); scale(1.5);
+    transform: translateX(-50%); scale(2);
     top: 15px;
   }
 }
