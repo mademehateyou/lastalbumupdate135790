@@ -148,14 +148,15 @@ footer {
 
 #watermark {
   position: fixed;
-  top: clamp(-5px, -1vw, -15px);           /* distance from the top */
-  left: 5%;           /* move it to the middle horizontally */
-  transform: translateX(-50%); /* actually center it */
-  width: clamp(4rem, 16vw, 12rem);      /* adjust size as you like */
-  opacity: 0.8;        /* transparency like a watermark */
-  z-index: 9999;       /* keep it above video & slides */
-  pointer-events: none; /* don’t block clicks */
+  top: clamp(-15px, -1vw, -5px);  /* distance from the top */
+  left: clamp(50%, 5%, 5%);       /* 5% on PC, 50% (center) on phones */
+  transform: translateX(-50%);    /* only matters when centered */
+  width: clamp(4rem, 16vw, 12rem);
+  opacity: 0.8;
+  z-index: 9999;
+  pointer-events: none;
 }
+
 
 
 #slideToggleBtn {
