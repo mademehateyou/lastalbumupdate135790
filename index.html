@@ -14,7 +14,7 @@
     <main>
 
     <div class="slide">
-  <video id="bg-video" autoplay muted playsinline webkit-playsinline></video>
+  <video id="player" autoplay muted playsinline webkit-playsinline></video>
 </div>
 
 
@@ -62,36 +62,28 @@
 
 
           <script>
-  // List of your videos in order
   const videos = [
-    "video/firstpart1.mp4", // first video
-    "video/secondpart2.mp4"  // second video
+    "video1.mp4", // replace with your first video path
+    "video2.mp4"  // replace with your second video path
   ];
 
-  const videoPlayer = document.getElementById("bg-video");
+  const player = document.getElementById("player");
   let currentIndex = 0;
 
-  // Function to play a video from the array
-  function playNextVideo() {
-    videoPlayer.src = videos[currentIndex];
-    videoPlayer.play().catch(err => {
-      console.log("Autoplay blocked:", err);
-    });
+  // Function to load & play a video
+  function playVideo(index) {
+    player.src = videos[index];
+    player.play();
   }
 
-  // Event triggers when a video ends
-  videoPlayer.addEventListener("ended", () => {
-    currentIndex++;
-    if (currentIndex < videos.length) {
-      playNextVideo();
-    } else {
-      currentIndex = 0; // loop back to first video
-      playNextVideo();
-    }
+  // When a video ends → load the next one
+  player.addEventListener("ended", () => {
+    currentIndex = (currentIndex + 1) % videos.length; // loop back
+    playVideo(currentIndex);
   });
 
-  // Start the first video
-  playNextVideo();
+  // Start with the first video
+  playVideo(currentIndex);
 </script>
 
 
