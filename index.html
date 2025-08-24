@@ -130,38 +130,49 @@
 
 
 
-                            <script>
-  // Set your target date
-  const targetDate = new Date("August 29, 2025 00:00:00").getTime();
+                           <script>
+    // Target date in Kyiv time
+    const targetKyiv = new Date("2025-08-29T00:00:00+03:00"); 
+    // Note: Kyiv is UTC+3 in August (daylight savings applied)
 
-  const countdown = document.getElementById("countdown");
+    function updateCountdown() {
+      const now = new Date();
 
-  function updateCountdown() {
-    const now = new Date().getTime();
-    const distance = targetDate - now;
+      // Get Kyiv current time offset
+      const formatter = new Intl.DateTimeFormat("en-US", {
+        timeZone: "Europe/Kyiv",
+        hour12: false,
+        year: "numeric", month: "2-digit", day: "2-digit",
+        hour: "2-digit", minute: "2-digit", second: "2-digit"
+      });
 
-    if (distance < 0) {
-      countdown.innerHTML = "ALBUM!";
-      clearInterval(interval);
-      return;
+      // Parse formatted Kyiv "now" into a Date
+      const parts = formatter.formatToParts(now);
+      const kyivNowStr = ${parts.find(p=>p.type==="year").value}-${parts.find(p=>p.type==="month").value}-${parts.find(p=>p.type==="day").value}T${parts.find(p=>p.type==="hour").value}:${parts.find(p=>p.type==="minute").value}:${parts.find(p=>p.type==="second").value}+03:00;
+      const kyivNow = new Date(kyivNowStr);
+
+      // Time difference
+      const diff = targetKyiv - kyivNow;
+
+      if (diff <= 0) {
+        document.getElementById("countdown").textContent = "🎉 The day has arrived in Kyiv!";
+        clearInterval(timer);
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      document.getElementById("countdown").textContent =
+        ${days}d ${hours}h ${minutes}m ${seconds}s;
     }
 
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-    countdown.innerHTML = `
-      <span class="unit">${days}D</span>
-      <span class="unit">${hours}H</span>
-      <span class="unit">${minutes}M</span>
-      <span class="unit">${seconds}S</span>
-    `;
-  }
-
-  const interval = setInterval(updateCountdown, 1000);
-  updateCountdown(); // run immediately
-</script>
+    // Update every second
+    updateCountdown();
+    const timer = setInterval(updateCountdown, 1000);
+  </script>
 
 
 
