@@ -149,7 +149,7 @@ footer {
 #watermark {
   position: fixed;
   top: clamp(-15px, -1vw, -5px);  /* distance from the top */
-  left: clamp(50%, 5%, 5%);       /* 5% on PC, 50% (center) on phones */
+  left: 5%;       /* 5% on PC, 50% (center) on phones */
   transform: translateX(-50%);    /* only matters when centered */
   width: clamp(4rem, 16vw, 12rem);
   opacity: 0.8;
@@ -192,6 +192,7 @@ footer {
 
 
 
+/* Phones: center it */
 @media (max-width: 768px) {
   #watermark {
     left: 50%;
@@ -199,9 +200,12 @@ footer {
   }
 }
 
-
-
-
+/* iOS Safari fallback: use vw for the left value when centering */
+@supports (-webkit-touch-callout: none) {
+  @media (max-width: 768px) {
+    #watermark { left: 50vw; }  /* same visual as 50%, but Safari-safe */
+  }
+}
 
 
 
