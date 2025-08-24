@@ -189,6 +189,28 @@ footer {
 
 
 
+
+
+
+@media (max-width: 768px) {
+  #watermark {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*
 
 @media all and (max-width: 500px) {
