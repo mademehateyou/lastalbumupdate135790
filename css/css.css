@@ -154,7 +154,6 @@ footer {
   width: clamp(4rem, 16vw, 12rem);
   opacity: 0.8;
   z-index: 9999;
-  pointer-events: auto;
 }
 
 
@@ -199,7 +198,6 @@ footer {
     transform: translateX(-50%); scale(2);
     top: 15px;
     width: calc(clamp(4rem, 16vw, 12rem) * 1.5);
-    pointer-events: auto;
   }
 }
 
