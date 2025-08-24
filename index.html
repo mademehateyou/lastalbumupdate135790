@@ -58,18 +58,6 @@
 
 
 
-<script>
-    const player = document.getElementById("player");
-
-player.muted = true;  // ✅ ensures autoplay works on iOS
-player.play().catch(() => {
-  // Safari still blocked autoplay? fallback:
-  player.setAttribute("playsinline", "");
-  player.setAttribute("muted", "");
-  player.play();
-});
-
-</script>
 
 
           <script>
