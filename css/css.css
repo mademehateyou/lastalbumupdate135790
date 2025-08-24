@@ -154,7 +154,7 @@ footer {
   width: clamp(4rem, 16vw, 12rem);
   opacity: 0.8;
   z-index: 9999;
-  pointer-events: none;
+  pointer-events: auto;
 }
 
 
