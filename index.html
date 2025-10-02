@@ -68,7 +68,7 @@
 <script>
   // List of your videos in order
   const videos = [
-    "video/LAST.mp4" // first video
+    "video/LAST.mp4" // first (and only) video for now
   ];
 
   const videoPlayer = document.getElementById("bg-video");
@@ -82,15 +82,10 @@
     });
   }
 
-  // Event triggers when a video ends
+  // When video ends, go to the next one (or loop back)
   videoPlayer.addEventListener("ended", () => {
-    currentIndex++;
-    if (currentIndex < videos.length) {
-      playNextVideo();
-    } else {
-      currentIndex = 0; // loop back to first video
-      playNextVideo();
-    }
+    currentIndex = (currentIndex + 1) % videos.length;
+    playNextVideo();
   });
 
   // Start the first video
